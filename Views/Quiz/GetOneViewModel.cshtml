@@ -1,0 +1,48 @@
+﻿@model ViewModel
+@{
+    ViewData["Title"] = "The Harry Potter Quiz";
+}
+
+<h1>GetOne</h1>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter Quiz</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4>Question</h4>
+                    </div>
+                    <form method="get" asp-controller="Quiz" asp-action="CheckAnswer">
+                        <input name="correctAnswer" asp-for="@Model.QuizApi.Answer" hidden/>
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.QuizApi.QuestionQuiz</h5>
+                            <div class="list-group">
+                                <input name="answer" asp-for="@Model.UserAnswer.AnswerUser" required/>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <input type="submit" class="btn btn-success" name="Send"></input>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
