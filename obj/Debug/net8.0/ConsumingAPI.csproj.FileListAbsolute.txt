@@ -225,3 +225,4 @@ C:\QuizAPI\ConsumingAPI\obj\Debug\net8.0\refint\ConsumingAPI.dll
 C:\QuizAPI\ConsumingAPI\obj\Debug\net8.0\ConsumingAPI.pdb
 C:\QuizAPI\ConsumingAPI\obj\Debug\net8.0\ConsumingAPI.genruntimeconfig.cache
 C:\QuizAPI\ConsumingAPI\obj\Debug\net8.0\ref\ConsumingAPI.dll
+C:\QuizAPI\ConsumingAPI\obj\Debug\net8.0\ConsumingAPI.sourcelink.json

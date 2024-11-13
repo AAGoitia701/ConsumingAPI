@@ -1,7 +1,9 @@
 ﻿using ConsumingAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace ConsumingAPI.Controllers
@@ -64,8 +66,8 @@ namespace ConsumingAPI.Controllers
             return questionsList;
         }
 
-
-        public  Quiz GetOneFromAPI()
+        //Returns one object from que API with a specific ID, if the id is > list of objects then it return null
+        public Quiz GetOneFromAPI()
         {
             var lisQuiz= GetList();
             int id = currentId;
@@ -73,17 +75,20 @@ namespace ConsumingAPI.Controllers
             currentId++;
 
             Quiz quizobj = new Quiz();
+
             quizobj.Id = id;
+
             HttpResponseMessage response = _httpClient.GetAsync(uri + $"quiz/getOne/{id}").Result;
             if (response.IsSuccessStatusCode) {
                 string data = response.Content.ReadAsStringAsync().Result;
                 quizobj = JsonConvert.DeserializeObject<Quiz>(data);
             }
 
-            if (currentId > lisQuiz.Count())
+            if (currentId > 3)
             {
-                Console.WriteLine($"You had {correctAnswers} correct answers");
-                FinishedQuiz();
+                //Console.WriteLine($"You had {correctAnswers} correct answers");
+                //RedirectToAction("FinishedQuiz");
+                return null;
             }
 
             return quizobj;
@@ -99,6 +104,11 @@ namespace ConsumingAPI.Controllers
                 UserAnswer = new UserAnswer()
             };
 
+            if(OneQuestion == null)
+            {
+                return RedirectToAction("FinishedQuiz");
+            }
+
             return View(model);
         }
 
@@ -106,17 +116,20 @@ namespace ConsumingAPI.Controllers
        {
             if (ModelState.IsValid) 
             {
-                ArrayList incorrectAnswers = new ArrayList();
+                CorrectIncorrectViewModel correctIncorrectViewModel = new CorrectIncorrectViewModel();
+
+
                 if (correctAnswer.ToLower().Contains(answer.ToLower()))
                 {
                     correctAnswers++;
+                    correctIncorrectViewModel.CorrectAnswers++;
                 }
                 else
-                {                   
-                    incorrectAnswers.Add(answer);
+                {
+                    correctIncorrectViewModel.IncorrectAnswers.Add(answer);
                 }
 
-
+   
             }          
             
 
@@ -125,7 +138,11 @@ namespace ConsumingAPI.Controllers
 
         public ActionResult FinishedQuiz()
         {
+       
+
             return View();
+
+           
 
         }
     }
