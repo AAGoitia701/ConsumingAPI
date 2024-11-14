@@ -11,7 +11,7 @@ namespace ConsumingAPI.Controllers
     public class QuizController : Controller
     {
         private static int currentId = 2;
-        private static int correctAnswers = 0;
+        private static int correctAnswers =0;
         Uri uri = new Uri("https://localhost:7052/");
         private readonly HttpClient _httpClient;
 
@@ -84,7 +84,11 @@ namespace ConsumingAPI.Controllers
                 quizobj = JsonConvert.DeserializeObject<Quiz>(data);
             }
 
+<<<<<<< HEAD
             if (currentId > 5) //change it to .count()
+=======
+            if (currentId > 3)
+>>>>>>> parent of 2e48565 (Made used of tempdata to save the list of user answers to show later, and added static var for the number of correct answers, also created a viewmodel to be able to return both on the same method, used Jsonconvert to serialize and deserialize the tempdata, otherwise it gives a null)
             {
                 //Console.WriteLine($"You had {correctAnswers} correct answers");
                 //RedirectToAction("FinishedQuiz");
@@ -114,6 +118,7 @@ namespace ConsumingAPI.Controllers
 
        public ActionResult CheckAnswer(string answer, string correctAnswer) 
        {
+<<<<<<< HEAD
 
             if (correctAnswer.ToLower().Contains(answer.ToLower()))
             {
@@ -158,8 +163,37 @@ namespace ConsumingAPI.Controllers
 
             // Pasamos la lista a la vista
             return View(correctIncorrect);
+=======
+            if (ModelState.IsValid) 
+            {
+                CorrectIncorrectViewModel correctIncorrectViewModel = new CorrectIncorrectViewModel();
 
 
+                if (correctAnswer.ToLower().Contains(answer.ToLower()))
+                {
+                    correctAnswers++;
+                    correctIncorrectViewModel.CorrectAnswers++;
+                }
+                else
+                {
+                    correctIncorrectViewModel.IncorrectAnswers.Add(answer);
+                }
+
+   
+            }          
+            
+
+            return RedirectToAction("GetOneViewModel");
+       }
+
+        public ActionResult FinishedQuiz()
+        {
+       
+>>>>>>> parent of 2e48565 (Made used of tempdata to save the list of user answers to show later, and added static var for the number of correct answers, also created a viewmodel to be able to return both on the same method, used Jsonconvert to serialize and deserialize the tempdata, otherwise it gives a null)
+
+            return View();
+
+           
 
         }
     }

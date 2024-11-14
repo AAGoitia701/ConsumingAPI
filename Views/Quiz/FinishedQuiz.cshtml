@@ -1,11 +1,4 @@
-﻿@model CorrectIncorrectViewModel
+﻿@model string
 
-<p>You had @Model.CorrectAnswers  correct answers</p>
-<p>These were your incorrect answers: 
-    @foreach(var answer in Model.IncorrectAnswers)
-    {
-        <p>@answer</p>
-    }    
-
-
-</p>
+<p>You had @Model correct answers</p>
+<p>These were your incorrect answers: @Model </p>

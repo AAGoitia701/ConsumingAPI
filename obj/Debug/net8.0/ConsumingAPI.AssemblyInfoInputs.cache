@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 2a943a48a0bc28acae786ab783bf74c6f5b140d2d47ceabce42b9a6685a5685e
+=======
+6a49b4a232cc4dabd79e0ddb590cc8afd1cdfc05abdebc20fb3c22f99f621c12
+>>>>>>> parent of 2e48565 (Made used of tempdata to save the list of user answers to show later, and added static var for the number of correct answers, also created a viewmodel to be able to return both on the same method, used Jsonconvert to serialize and deserialize the tempdata, otherwise it gives a null)
