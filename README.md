@@ -6,8 +6,11 @@ The QuizAPI is used on this project.
 
 ## Features
 **API Integration:** Fetches data from third-party API endpoints.
+
 **MVC Pattern:** Uses the ASP.NET MVC structure for easy scalability and maintainability.
+
 **Error Handling:** Includes basic error handling for network and server-side errors.
+
 **Data Presentation:** Presents API data in an easily readable format using Razor views.
 
 ## Prerequisites
