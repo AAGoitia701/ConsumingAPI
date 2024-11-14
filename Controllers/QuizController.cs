@@ -84,7 +84,7 @@ namespace ConsumingAPI.Controllers
                 quizobj = JsonConvert.DeserializeObject<Quiz>(data);
             }
 
-            if (currentId > 3) //change it to .count()
+            if (currentId > 5) //change it to .count()
             {
                 //Console.WriteLine($"You had {correctAnswers} correct answers");
                 //RedirectToAction("FinishedQuiz");
@@ -114,51 +114,50 @@ namespace ConsumingAPI.Controllers
 
        public ActionResult CheckAnswer(string answer, string correctAnswer) 
        {
-            List<string> answerList = new List<string>(); //used because tempdata does not allow complex types
-            if (ModelState.IsValid) 
+
+            if (correctAnswer.ToLower().Contains(answer.ToLower()))
             {
-                if (correctAnswer.ToLower().Contains(answer.ToLower()))
-                {
-                    correctAnswers++;
-                }
-                else
-                {
-                    answerList.Add(answer);
-                }
-
-
-            }
-            TempData["answerUserList"] = JsonConvert.SerializeObject(answerList); //serialize the list, so it can be used later
-
-            return RedirectToAction("GetOneViewModel");
-       }
-
-        public ActionResult FinishedQuiz()
-        {
-            // Makes sure tempdata has values before using it
-            if (TempData.ContainsKey("answerUserList"))
-            {
-                // Keep the data 
-                TempData.Keep("answerUserList"); // Keeps "answerUserList" in TempData
-
-                var listAnswersJson = TempData["answerUserList"] as string;
-
-                var answerList = JsonConvert.DeserializeObject<List<string>>(listAnswersJson); //deserialize the string to a list
-
-                //used viewmodel to be able to send more data to view
-                CorrectIncorrectViewModel correctIncorrects = new CorrectIncorrectViewModel()
-                {
-                    CorrectAnswers = correctAnswers,
-                    IncorrectAnswers = answerList
-                };
-
-                return View(correctIncorrects);
+                correctAnswers++;
             }
             else
             {
-                // if tempdata has no data
-                return View(new List<string>()); // sends empty list
+                // Recuperamos la lista serializada de TempData
+                var answerListJson = TempData["answerUserList"] as string;
+
+                // Si no existe, inicializamos una nueva lista
+                List<string> answerList = string.IsNullOrEmpty(answerListJson)
+                    ? new List<string>()
+                    : JsonConvert.DeserializeObject<List<string>>(answerListJson);
+
+                // Agregamos el nuevo dato a la lista
+                answerList.Add(answer);
+
+                // Guardamos la lista serializada nuevamente en TempData
+                TempData["answerUserList"] = JsonConvert.SerializeObject(answerList);
             }
+           
+
+            return RedirectToAction("GetOneViewModel");
+        }
+
+        public ActionResult FinishedQuiz()
+        {
+            // Recuperamos la lista serializada de TempData
+            var answerListJson = TempData["answerUserList"] as string;
+
+            // Si no existe, se crea una lista vacía
+            List<string> answerList = string.IsNullOrEmpty(answerListJson)
+                ? new List<string>()
+                : JsonConvert.DeserializeObject<List<string>>(answerListJson);
+
+            CorrectIncorrectViewModel correctIncorrect = new CorrectIncorrectViewModel()
+            {
+                CorrectAnswers = correctAnswers,
+                IncorrectAnswers = answerList
+            };
+
+            // Pasamos la lista a la vista
+            return View(correctIncorrect);
 
 
 
