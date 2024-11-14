@@ -1,5 +1,5 @@
 # ConsumingAPI
-This project demonstrates how to consume external APIs using a C# ASP.NET Core application. The application serves as a foundational example for building web applications that connect to third-party APIs, fetching and displaying data in a structured format.
+This project demonstrates how to consume external APIs using a C# ASP.NET Core application. The application serves as a foundational example for building web applications that connect to third-party APIs, fetching and displaying data in a structured format. The QuizAPI is used on this project. 
 
 ## Features
 API Integration: Fetches data from third-party API endpoints.
