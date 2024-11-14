@@ -25,6 +25,7 @@
                     </div>
                     <form method="get" asp-controller="Quiz" asp-action="CheckAnswer">
                         <input name="correctAnswer" asp-for="@Model.QuizApi.Answer" hidden/>
+                        <input name="question" asp-for="@Model.QuizApi.QuestionQuiz" hidden />
                         <div class="card-body">
                             <h5 class="card-title">@Model.QuizApi.QuestionQuiz</h5>
                             <div class="list-group">

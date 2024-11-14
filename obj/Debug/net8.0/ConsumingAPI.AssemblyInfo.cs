@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConsumingAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e485655ca513e6c0730b7b16444cd6a99fe81a0")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+017d142398609dea9609e09c83b168f160bc9e0b")]
->>>>>>> parent of 2e48565 (Made used of tempdata to save the list of user answers to show later, and added static var for the number of correct answers, also created a viewmodel to be able to return both on the same method, used Jsonconvert to serialize and deserialize the tempdata, otherwise it gives a null)
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0555d42480802cc908f74582622ecbc02e9a1c45")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConsumingAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConsumingAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -84,14 +84,8 @@ namespace ConsumingAPI.Controllers
                 quizobj = JsonConvert.DeserializeObject<Quiz>(data);
             }
 
-<<<<<<< HEAD
             if (currentId > 5) //change it to .count()
-=======
-            if (currentId > 3)
->>>>>>> parent of 2e48565 (Made used of tempdata to save the list of user answers to show later, and added static var for the number of correct answers, also created a viewmodel to be able to return both on the same method, used Jsonconvert to serialize and deserialize the tempdata, otherwise it gives a null)
             {
-                //Console.WriteLine($"You had {correctAnswers} correct answers");
-                //RedirectToAction("FinishedQuiz");
                 return null;
             }
 
@@ -116,9 +110,8 @@ namespace ConsumingAPI.Controllers
             return View(model);
         }
 
-       public ActionResult CheckAnswer(string answer, string correctAnswer) 
+       public ActionResult CheckAnswer(string answer, string correctAnswer, string question) 
        {
-<<<<<<< HEAD
 
             if (correctAnswer.ToLower().Contains(answer.ToLower()))
             {
@@ -126,19 +119,29 @@ namespace ConsumingAPI.Controllers
             }
             else
             {
-                // Recuperamos la lista serializada de TempData
+                // We get the tempdata as string
                 var answerListJson = TempData["answerUserList"] as string;
 
-                // Si no existe, inicializamos una nueva lista
+                var questionListJson = TempData["questionList"] as string;
+
+                // If the list doesn't exist, we create it, otherwise we deserialize it
                 List<string> answerList = string.IsNullOrEmpty(answerListJson)
                     ? new List<string>()
                     : JsonConvert.DeserializeObject<List<string>>(answerListJson);
 
-                // Agregamos el nuevo dato a la lista
+                List<string> questionList = string.IsNullOrEmpty(questionListJson) ?
+                    new List<string>() :
+                    JsonConvert.DeserializeObject<List<string>>(questionListJson);
+
+                // Add new data
                 answerList.Add(answer);
 
-                // Guardamos la lista serializada nuevamente en TempData
+                questionList.Add(question);
+
+                // Save the serialized data again in tempData
                 TempData["answerUserList"] = JsonConvert.SerializeObject(answerList);
+
+                TempData["questionList"] = JsonConvert.SerializeObject(questionList);
             }
            
 
@@ -150,51 +153,31 @@ namespace ConsumingAPI.Controllers
             // Recuperamos la lista serializada de TempData
             var answerListJson = TempData["answerUserList"] as string;
 
+            var questionListJson = TempData["questionList"] as string;
+
             // Si no existe, se crea una lista vacía
             List<string> answerList = string.IsNullOrEmpty(answerListJson)
                 ? new List<string>()
                 : JsonConvert.DeserializeObject<List<string>>(answerListJson);
 
+            List<string> questionList = string.IsNullOrEmpty(questionListJson)
+                ? new List<string>()
+                : JsonConvert.DeserializeObject<List<string>>(questionListJson);
+
             CorrectIncorrectViewModel correctIncorrect = new CorrectIncorrectViewModel()
             {
                 CorrectAnswers = correctAnswers,
-                IncorrectAnswers = answerList
+                IncorrectAnswers = answerList,
+                QuestionList = questionList
             };
 
             // Pasamos la lista a la vista
             return View(correctIncorrect);
-=======
-            if (ModelState.IsValid) 
-            {
-                CorrectIncorrectViewModel correctIncorrectViewModel = new CorrectIncorrectViewModel();
+             
+                               
 
-
-                if (correctAnswer.ToLower().Contains(answer.ToLower()))
-                {
-                    correctAnswers++;
-                    correctIncorrectViewModel.CorrectAnswers++;
-                }
-                else
-                {
-                    correctIncorrectViewModel.IncorrectAnswers.Add(answer);
-                }
-
-   
-            }          
-            
-
-            return RedirectToAction("GetOneViewModel");
        }
 
-        public ActionResult FinishedQuiz()
-        {
-       
->>>>>>> parent of 2e48565 (Made used of tempdata to save the list of user answers to show later, and added static var for the number of correct answers, also created a viewmodel to be able to return both on the same method, used Jsonconvert to serialize and deserialize the tempdata, otherwise it gives a null)
 
-            return View();
-
-           
-
-        }
     }
 }
